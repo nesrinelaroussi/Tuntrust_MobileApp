@@ -1,0 +1,109 @@
+[
+  {
+    "name": "Certificat d'Authentification et de Signature ID-Trust",
+    "description": "Le certificat ID-Trust délivré par l'agence nationale de certification électronique TUNTRUST est votre carte d’identité numérique sur Internet. Ce certificat a un double usage : Il vous permet d’apposer votre signature électronique sur les documents électroniques pour manifester votre consentement par rapport au contenu de l’acte signé. Il permet également de vous authentifier auprès des plateformes de services à distance pour effectuer vos transactions en ligne en toute sécurité, par exemple émettre un virement bancaire, accéder au site de la télé-déclaration fiscale, etc. Le certificat ID-Trust est obligatoirement sécurisé sur un token cryptographique.\nLes frais de livraison (7DT par certificat) .\nVeuillez commander votre certificat ID-Trust en ligne via le portail https://ecert.tuntrust.tn .\nTéléchargez le manuel d'utilisation du portail ecert\nVeuillez nous envoyer un email à : assistance@tuntrust.tn ou tuntrust@tuntrust.tn",
+    "features": [
+      "Durée de validité : 2 ans",
+      "Certificat sur un support cryptographique : token cryptographique",
+      "Algorithmes : RSA 2048, SHA256",
+      "Certificat conforme aux normes ETSI EN 319 411-1 et ETSI EN 319 411-2",
+      "Usages:Tuneps, déclaration douanière, signature de documents , emails, etc.",
+      "Utilisé avec notre solution de signature TunSign"
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_6.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/id-trust-certificat-dauthentification-et-de-signature"
+  },
+  {
+    "name": "Organisation SSL",
+    "description": "Le certificat Organisation SSL de l'agence nationale de certification électronique TUNTRUST valide l'identité de votre entreprise sur Internet. Pour une confiance accrue des visiteurs, l'existence légale, physique et opérationnelle de votre entreprise sont vérifiées avant émission de votre certificat.\nLe certificat Organisation SSL rendra l'identité de votre entreprise visible en cliquant sur le cadenas symbole du protocole \"https\". Comme pour tous les certificats SSL de TUNTRUST, les échanges électroniques entre votre serveur et vos clients sont établis dans une session sécurisée assurant la confidentialité et l’intégrité des données échangées.\nN.B : Tous les certificats SSL émis par l'agence nationale de certification électronique sont reconnus sur Microsoft, Mozilla Firefox et Google Chrome.\nPar ailleurs, l'agence nationale de certification électronique fournit ses clients des certificats SSL générés par des autorités étrangères et reconnues par tous les navigateurs. Les clients qui souhaitent avoir un certificat SSL reconnu sur tous les navigateurs sont priés de nous contacter pour se renseigner sur la procédure à suivre.\nPour obtenir votre certificat Organisation SSL , vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces requises en choisissant l’une des méthodes de validation de domaine mentionnée dans le guide .",
+    "features": [
+      "Durée de validité : 1 an",
+      "Sécurisation d’un seul nom de domaine sous la forme @domaine.tn",
+      "Certificat sous format logiciel",
+      "Algorithmes : RSA 2048, SHA256",
+      "Certificat conforme à la réglementation nationale et aux normes WebTrust for CAs, WebTrust for CAs – SSL Baseline with Network Security."
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_9.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/organisation-ssl"
+  },
+  {
+    "name": "Wildcard SSL",
+    "description": "Le Certificat Serveur Wildcard de l'agence nationale de certification électronique TUNTRUST sécurise un nombre illimité de sous-domaines avec un certificat SSL unique, réduisant ainsi le temps et le coût de gestion de certificat.\nL'utilisation de la notation wildcard (un astérisque et un point avant votre nom de domaine : *.domaine.tn permet d'étendre la sécurité à différents sous-domaines, basés sur le nom de votre domaine de niveau supérieur.\nN.B : Tous les certificats SSL émis par l'agence nationale de certification électronique sont reconnus sur Microsoft, Mozilla Firefox et Google Chrome.\nPar ailleurs, l'agence nationale de certification électronique fournit ses clients des certificats SSL générés par des autorités étrangères et reconnues par tous les navigateurs. Les clients qui souhaitent avoir un certificat SSL reconnu sur tous les navigateurs sont priés de nous contacter pour se renseigner sur la procédure à suivre.\nPour obtenir votre certificat Wildcard SSL , vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces requises en choisissant l'une des méthodes de validation de domaine mentionnée dans le guide.",
+    "features": [
+      "Durée de validité : 1 an",
+      "Sécurisation d’un seul nom de domaine sous la forme @domaine.tn",
+      "Certificat sous format logiciel",
+      "Algorithmes : RSA 2048, SHA 256",
+      "Certificat conforme à la réglementation nationale et aux normes WebTrust for CAs, WebTrust for CAs – SSL Baseline with Network Security."
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_10.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/wildcard-ssl"
+  },
+  {
+    "name": "SAN SSL",
+    "description": "Les certificats SAN SSL (Subject Alternative Name) de l'agence nationale de certification électronique TUNTRUST vous permettent de sécuriser différents domaines ou serveurs à l'aide d'un seul certificat.\nCela signifie qu'un seul certificat pourra sécuriser un serveur mail, un service à distance, un domaine et bien plus encore. Par exemple, vous pouvez sécuriser tous ces domaines à l'aide d'un seul certificat SAN : www.domaine.tn, www.exchange.domaine.tn, www.domaine.tn et www.new-domaine.tn\nLes certificats SAN SSL sont souvent utilisés pour les communications unifiées (UC) pour sécuriser Microsoft Exchange Server, Office Communications Server ou le gestionnaire d'appareil mobile.\nN.B : Tous les certificats SSL émis par l'agence nationale de certification électronique sont reconnus sur Microsoft, Mozilla Firefox et Google Chrome.\nPar ailleurs, l'agence nationale de certification électronique fournit ses clients des certificats SSL générés par des autorités étrangères et reconnues par tous les navigateurs. Les clients qui souhaitent avoir un certificat SSL reconnu sur tous les navigateurs sont priés de nous contacter pour se renseigner sur la procédure à suivre.\nPour obtenir votre certificat SAN SSL , vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces requises en choisissant l'une des méthodes de validation de domaine mentionnée dans le guide.",
+    "features": [
+      "Durée de validité : 1 an",
+      "Certificat sous format logiciel",
+      "Algorithmes : RSA 2048, SHA 256",
+      "Usage : Sécurisation de plusieurs noms de domaine sous la forme @domaine.tn",
+      "Certificat conforme à la réglementation nationale et aux normes WebTrust for CAs, WebTrust for CAs – SSL Baseline with Network Security."
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_11.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/san-ssl"
+  },
+  {
+    "name": "Cachet électronique Enterprise-ID",
+    "description": "Le cachet électronique Enterprise-ID permet d’apposer une signature au nom d’une personne morale en identifiant clairement sa raison sociale, son matricule fiscal, etc. Le cachet électronique de votre entreprise permet d’assurer l’intégrité et l’authenticité des documents numériques de votre entreprise.\nLe cachet électronique Enterprise-ID peut être utilisé pour la dématérialisation des procédures administratives, il permet de sceller vos documents numériques tels que les factures, les bulletins de paie, etc. Il peut également être utilisé pour la conservation sécurisée de vos documents.\nPour obtenir votre certificat Enterprise-ID , vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces suivantes :\nN.B: Pour les certificats sur HSM, contactez l'agence nationale de certification électronique TUNTRUST par email assistance'at'tuntrust.tn ou tuntrust'at'tuntrust.tn",
+    "features": [
+      "Durée de validité de 1 à 2 ans",
+      "Certificat sur HSM",
+      "Algorithmes: SHA 256, ECDSA-256",
+      "Certificat conforme aux normes ETSI EN 319 411-1 et ETSI EN 319 411-2",
+      "Usages : factures électroniques, bulletins de paie, …."
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_7.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/cachet-electronique-enterprise-id"
+  },
+  {
+    "name": "Cachet électronique visible TN CEV 2D-DOC",
+    "description": "Le cachet électronique visible TN CEV 2D-DOC permet d’assurer l’intégrité et l’authenticité de vos documents électroniques et papier en y apposant un code à barre à deux dimensions (QR code) contenant les informations clés de vos documents verrouillées par le cachet électronique de l'entité émettrice.\nLe certificat TN CEV 2D-DOC est utilisé avec la solution QR-Sign de l'agence nationale de certification électronique TUNTRUST pour créer un QR Code signé qui vous permettra de sécuriser vos documents originaux ou photocopiés contre la fraude. Ainsi vous pouvez sécuriser des documents tels que les bulletins de paie, les diplômes, les factures…\nPour obtenir votre certificat, vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces suivantes :",
+    "features": [
+      "Durée de validité de 1 à 2 ans",
+      "Certificat sur HSM",
+      "Algorithmes: SHA 384, ECDSA-256",
+      "Certificat répondant au standard 2D-Doc .",
+      "Usages : sécuriser les factures électroniques, bulletins de paie, diplômes, ….",
+      "Solution alternative aux copies conformes.",
+      "La validité des cachets électroniques visible est vérifiée à l'aide de l'application gratuite QR-Check"
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_8.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/cachet-electronique-visible-tn-cev-2d-doc"
+  },
+  {
+    "name": "Certificat VPN",
+    "description": "Le certificat VPN de l'agence nationale de certification électronique TUNTRUST permet d’associer des informations relatives à certains nœuds du réseau (routeurs, firewalls, concentrateurs …) à une clé publique. Ce certificat est utilisé pour garantir la sécurité des échanges effectués entre une organisation et ses filiales à travers des tunnels sécurisés dans le réseau de communication.\nLe certificat VPN authentifie l'identité de votre équipement réseau dans les réseaux locaux ou sur Internet.\nPour obtenir votre certificat VPN , vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces suivantes :",
+    "features": [
+      "Durée de validité de 1 an à 2 ans",
+      "Certificat sous format logiciel",
+      "Algorithmes : RSA 2048, SHA 256",
+      "Certificat conforme à la norme ETSI EN 319 411-1",
+      "Usage : Sécurisation de la communication réseau"
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_13.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/certificat-vpn"
+  },
+  {
+    "name": "Certificat signature de code",
+    "description": "Le certificat signature de code de l'agence nationale de certification électronique TUNTRUST assure l’authenticité, la sécurité et l’intégrité d’un code signé.\nLa signature de code vérifie l'identité de l'émetteur d'un jeu de codes spécifique, et atteste qu'il n'a pas été modifié depuis sa signature. Elle permet également d'assurer la protection de vos utilisateurs, de votre marque et de votre propriété intellectuelle.\nPour obtenir votre certificat de signature de code , vous devez déposer au guichet de l'agence nationale de certification électronique TUNTRUST un dossier complet contenant les pièces suivantes :",
+    "features": [
+      "Durée de validité de 1 an à 2 ans",
+      "Certificat sous format logiciel",
+      "Algorithmes : RSA 2048, SHA 256",
+      "Certificat conforme à la norme ETSI EN 319 411-1",
+      "Usage: signer les applications et les programmes qui seront par la suite distribués sur Internet"
+    ],
+    "image": "https://tuntrust.tn/sites/default/files/2017-10/produit_12.jpg",
+    "url": "https://tuntrust.tn/fr/nos-produits/certificat-signature-de-code"
+  }
+]
