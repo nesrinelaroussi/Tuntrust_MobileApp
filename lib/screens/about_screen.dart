@@ -591,11 +591,25 @@ class _LegalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppTheme.cardWhite,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: AppTheme.cardShadow,
+        gradient: LinearGradient(
+          colors: [
+            Colors.white,
+            AppTheme.surfaceLight,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+        border: Border.all(color: AppTheme.borderColor),
       ),
       child: Column(
         children: [
@@ -603,14 +617,13 @@ class _LegalCard extends StatelessWidget {
             title: 'Loi n°2000-83',
             desc: 'Échanges et commerce électroniques — valeur juridique de la signature électronique',
             color: const Color(0xFFF59E0B),
+            isFirst: true,
           ),
-          const Divider(height: 20),
           _LegalRow(
             title: 'Décret n°2000-2354',
             desc: 'Création de l\'ANCE (TunTrust) — Agence Nationale de Certification Électronique',
             color: const Color(0xFF6366F1),
           ),
-          const Divider(height: 20),
           _LegalRow(
             title: 'Arrêté du 9 octobre 2002',
             desc: 'Normes et procédures techniques de certification électronique en Tunisie',
@@ -624,38 +637,87 @@ class _LegalCard extends StatelessWidget {
 }
 
 class _LegalRow extends StatelessWidget {
-  const _LegalRow({required this.title, required this.desc, required this.color, this.last = false});
+  const _LegalRow({required this.title, required this.desc, required this.color, this.isFirst = false, this.last = false});
   final String title;
   final String desc;
   final Color color;
+  final bool isFirst;
   final bool last;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Column(
+            children: [
+              Container(
+                width: 2,
+                height: 16,
+                color: isFirst ? Colors.transparent : AppTheme.borderColor,
+              ),
+              Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: color.withOpacity(0.4),
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  width: 2,
+                  color: last ? Colors.transparent : AppTheme.borderColor,
+                ),
+              ),
+            ],
           ),
-          child: Text(title,
-              style: TextStyle(
-                  color: color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700)),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(desc,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppTheme.textPrimary,
-                    height: 1.45,
-                  )),
-        ),
-      ],
+          const SizedBox(width: 16),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(top: isFirst ? 14 : 12, bottom: last ? 0 : 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    desc,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppTheme.textPrimary,
+                          height: 1.5,
+                          fontSize: 13,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

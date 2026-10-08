@@ -71,16 +71,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen>
                             decoration: BoxDecoration(
                                 gradient:
                                     AppTheme.categoryGradient(product.category))),
-                        errorWidget: (_, __, ___) => Container(
-                            decoration: BoxDecoration(
-                                gradient:
-                                    AppTheme.categoryGradient(product.category))),
+                        errorWidget: (_, __, ___) => Image.asset(
+                          'assets/img.png',
+                          fit: BoxFit.cover,
+                        ),
                       )
                     else
-                      Container(
-                          decoration: BoxDecoration(
-                              gradient:
-                                  AppTheme.categoryGradient(product.category))),
+                      Image.asset(
+                        'assets/img.png',
+                        fit: BoxFit.cover,
+                      ),
                     // Scrim
                     Container(
                       decoration: BoxDecoration(

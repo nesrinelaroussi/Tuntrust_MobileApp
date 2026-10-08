@@ -3,13 +3,21 @@ import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import '../api_service.dart';
 
+class QuotaExceededException implements Exception {
+  final String message;
+  QuotaExceededException(this.message);
+
+  @override
+  String toString() => message;
+}
+
 class ChatService {
   ChatService({http.Client? client}) : _client = client ?? http.Client();
 
   final http.Client _client;
 
   // PC LAN IP for physical Android/iOS devices on same Wi-Fi.
-  static const String baseUrl = 'http://192.168.100.10:3000';
+  static const String baseUrl = 'http://10.112.149.7:3000';
   static const String _chatEndpoint = '/ai/chat';
 
   /// Sends a question to `/ai/chat` with optional conversationId and returns a map.
@@ -58,6 +66,10 @@ class ChatService {
           return decoded;
         }
         throw const FormatException('Format de réponse invalide.');
+      }
+
+      if (response.statusCode == 403) {
+        throw QuotaExceededException('Quota gratuit de 3 questions atteint. Abonnement TunTrust Pro requis.');
       }
 
       throw Exception(

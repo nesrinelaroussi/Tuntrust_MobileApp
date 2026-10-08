@@ -113,7 +113,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             // ── Curved gradient header ─────────────────────────
             Container(
               width: double.infinity,
-              height: size.height * 0.28,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [_green, _teal],
@@ -126,6 +125,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
               child: SafeArea(
+                bottom: false,
                 child: Column(
                   children: [
                     Align(
@@ -136,7 +136,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
                       ),
                     ),
-                    const Spacer(),
+                    const SizedBox(height: 16),
                     Container(
                       width: 60,
                       height: 60,
@@ -156,7 +156,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       _otpSent ? 'Entrez le code reçu par e-mail' : 'Nous vous enverrons un code de vérification',
                       style: const TextStyle(fontSize: 13, color: Colors.white70),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 32),
                   ],
                 ),
               ),

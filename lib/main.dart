@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import 'api_service.dart';
 import 'login_screen.dart';
 import 'providers/products_provider.dart';
+import 'services/subscription_service.dart';
 import 'theme/app_theme.dart';
 import 'widgets/main_shell.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SubscriptionService.instance.initialize();
   runApp(const MyApp());
 }
 
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
+        ChangeNotifierProvider.value(value: SubscriptionService.instance),
       ],
       child: MaterialApp(
         title: 'TunTrust',

@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'services/subscription_service.dart';
 
 class ApiService {
   // Use PC LAN IP so physical Android devices on the same Wi-Fi can reach the NestJS backend.
-  static const String baseUrl = 'http://192.168.100.10:3000';
+  static const String baseUrl = 'http://10.112.149.7:3000';
   static const String _tokenKey = 'auth_token';
   static const String _userKey = 'auth_user';
 
@@ -36,6 +37,7 @@ class ApiService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
     await prefs.remove(_userKey);
+    await SubscriptionService.instance.logOut();
   }
 
   static Future<bool> isLoggedIn() async {
@@ -66,9 +68,20 @@ class ApiService {
       body: jsonEncode({'name': name, 'email': email, 'password': password}),
     );
     final data = jsonDecode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 201) return data;
+    if (response.statusCode == 201) {
+      // Save token + user + init RevenueCat (same pattern as login).
+      await saveToken(data['access_token'] as String);
+      final user = data['user'] as Map<String, dynamic>;
+      await saveUser(user);
+      final userId = user['id']?.toString() ?? user['_id']?.toString() ?? '';
+      if (userId.isNotEmpty) {
+        await SubscriptionService.instance.identifyUser(userId);
+      }
+      return data;
+    }
     throw data['message'] ?? 'Une erreur est survenue lors de l\'inscription.';
   }
+
 
   static Future<Map<String, dynamic>> verifyOtp({
     required String userId,
@@ -80,7 +93,14 @@ class ApiService {
       body: jsonEncode({'userId': userId, 'otp': otp}),
     );
     final data = jsonDecode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) return data;
+    if (response.statusCode == 200) {
+      if (data.containsKey('user')) {
+        final user = data['user'] as Map<String, dynamic>;
+        final uid = user['id']?.toString() ?? user['_id']?.toString() ?? userId;
+        await SubscriptionService.instance.identifyUser(uid);
+      }
+      return data;
+    }
     throw data['message'] ?? 'Code OTP incorrect.';
   }
 
@@ -107,7 +127,12 @@ class ApiService {
     final data = jsonDecode(response.body) as Map<String, dynamic>;
     if (response.statusCode == 200) {
       await saveToken(data['access_token'] as String);
-      await saveUser(data['user'] as Map<String, dynamic>);
+      final user = data['user'] as Map<String, dynamic>;
+      await saveUser(user);
+      final userId = user['id']?.toString() ?? user['_id']?.toString() ?? '';
+      if (userId.isNotEmpty) {
+        await SubscriptionService.instance.identifyUser(userId);
+      }
       return data;
     }
     throw data['message'] ?? 'Identifiants incorrects.';

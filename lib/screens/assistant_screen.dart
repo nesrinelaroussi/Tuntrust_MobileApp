@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../api_service.dart';
 import '../services/chat_service.dart';
+import '../services/subscription_service.dart';
 import '../theme/app_theme.dart';
 import 'history_screen.dart';
+import 'paywall_screen.dart';
 
 class AssistantScreen extends StatefulWidget {
   const AssistantScreen({super.key});
@@ -169,6 +171,21 @@ class _AssistantScreenState extends State<AssistantScreen> {
 
     if (text.isEmpty || _isLoading) return;
 
+    final subService = SubscriptionService.instance;
+    await subService.syncBackendSubscription();
+
+    if (!subService.canAskQuestion) {
+      if (!mounted) return;
+      final purchased = await Navigator.push<bool>(
+        context,
+        MaterialPageRoute(builder: (context) => const PaywallScreen()),
+      );
+
+      if (purchased != true && !subService.isSubscribed) {
+        return;
+      }
+    }
+
     setState(() {
       _messages.add(
         _ChatMessage(
@@ -181,7 +198,6 @@ class _AssistantScreenState extends State<AssistantScreen> {
     });
 
     _controller.clear();
-
     _scrollToBottom();
 
     try {
@@ -191,12 +207,8 @@ class _AssistantScreenState extends State<AssistantScreen> {
       );
 
       final answer = responseData['answer'] ?? '';
-
-      final String? newId =
-      responseData['conversationId'];
-
-      final String? newTitle =
-      responseData['title'];
+      final String? newId = responseData['conversationId'];
+      final String? newTitle = responseData['title'];
 
       if (!mounted) return;
 
@@ -216,12 +228,30 @@ class _AssistantScreenState extends State<AssistantScreen> {
         _isLoading = false;
       });
 
+      subService.syncBackendSubscription();
       _scrollToBottom();
+    } on QuotaExceededException {
+      if (!mounted) return;
+      
+      setState(() {
+        if (_messages.isNotEmpty && _messages.last.isUser && _messages.last.text == text) {
+          _messages.removeLast();
+        }
+        _isLoading = false;
+      });
+
+      final purchased = await Navigator.push<bool>(
+        context,
+        MaterialPageRoute(builder: (context) => const PaywallScreen()),
+      );
+
+      if (purchased == true || subService.isSubscribed) {
+        _sendMessage(text);
+      }
     } catch (error) {
       if (!mounted) return;
 
-      final errorMessage =
-      error.toString().replaceFirst('Exception: ', '');
+      final errorMessage = error.toString().replaceFirst('Exception: ', '');
 
       setState(() {
         _messages.add(
@@ -401,6 +431,32 @@ class _AssistantScreenState extends State<AssistantScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  ListenableBuilder(
+                    listenable: SubscriptionService.instance,
+                    builder: (context, child) {
+                      final sub = SubscriptionService.instance;
+                      if (sub.isSubscribed) return const SizedBox.shrink();
+                      final remaining = sub.remainingFreeQuestions;
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.bolt_rounded, size: 14, color: Colors.amber.shade700),
+                            const SizedBox(width: 4),
+                            Text(
+                              '$remaining question${remaining > 1 ? "s" : ""} gratuite${remaining > 1 ? "s" : ""} restante${remaining > 1 ? "s" : ""} aujourd\'hui',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.amber.shade900,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                   // Suggestion chips
                   SingleChildScrollView(
                     scrollDirection:
@@ -646,11 +702,9 @@ class _EmptyStateWidget extends StatelessWidget {
 class _ChatBubble extends StatelessWidget {
   const _ChatBubble({
     required this.message,
-    this.color,
   });
 
   final _ChatMessage message;
-  final Color? color;
 
   bool get _isArabic =>
       RegExp(r'[\u0600-\u06FF]')
@@ -662,7 +716,7 @@ class _ChatBubble extends StatelessWidget {
         ? const Color(0xFFFEF2F2)
         : (message.isUser
         ? AppTheme.primaryGreen
-        : color ?? AppTheme.cardWhite);
+        : AppTheme.cardWhite);
 
     final textColor = message.isError
         ? const Color(0xFFDC2626)

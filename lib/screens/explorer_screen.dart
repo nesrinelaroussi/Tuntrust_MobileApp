@@ -123,6 +123,7 @@ class _SolutionData {
     required this.useCases,
     required this.features,
     required this.floatPhase,
+    required this.imagePath,
   });
   final String key;
   final String title;
@@ -134,6 +135,7 @@ class _SolutionData {
   final List<String> useCases;
   final List<String> features;
   final double floatPhase;
+  final String imagePath;
 }
 
 const List<_SolutionData> _solutions = [
@@ -160,6 +162,7 @@ const List<_SolutionData> _solutions = [
       'Traçabilité et archivage sécurisé',
     ],
     floatPhase: 0.0,
+    imagePath: 'assets/img_1.png',
   ),
   _SolutionData(
     key: 'cev',
@@ -169,7 +172,7 @@ const List<_SolutionData> _solutions = [
         'Cachet Électronique Visible (TN CEV 2D-DOC) pour garantir l\'authenticité et l\'intégrité de vos documents officiels grâce à un QR code cryptographique.',
     icon: Icons.qr_code_2_rounded,
     color: AppTheme.cevColor,
-    url: 'https://www.tuntrust.tn/fr/solutions/cev',
+    url: 'https://cev.tuntrust.tn/TuntrustCev/login.jsf',
     useCases: [
       'Documents officiels et administratifs',
       'Diplômes et attestations',
@@ -181,9 +184,10 @@ const List<_SolutionData> _solutions = [
       'Vérification instantanée par scan',
       'Compatible avec les documents imprimés',
       'Infrastructure PKI nationale TunTrust',
-      'Conforme aux standards internationaux',
+      'Conforme au standard 2D-Doc v4',
     ],
     floatPhase: 0.5,
+    imagePath: 'assets/img_2.png',
   ),
   _SolutionData(
     key: 'digigo',
@@ -193,7 +197,7 @@ const List<_SolutionData> _solutions = [
         'Solution de signature électronique à distance, entièrement mobile et sans support physique. Signez vos documents depuis n\'importe où, à tout moment.',
     icon: Icons.phone_android_rounded,
     color: AppTheme.digigoColor,
-    url: 'https://www.tuntrust.tn/fr/solutions/digigo',
+    url: 'https://digigo.tuntrust.tn/login',
     useCases: [
       'Signature mobile sans token physique',
       'Processus de signature à distance',
@@ -201,13 +205,14 @@ const List<_SolutionData> _solutions = [
       'Signature en masse de documents',
     ],
     features: [
-      'Signature cloud sans token physique',
-      'Application mobile Android/iOS',
+      'Signature électronique qualifiée ',
+      'Conforme à la législation tunisienne',
       'Certificat de signature Digigo',
-      'Intégration API pour entreprises',
+      'Algorithme de signature : SHA256',
       'Authentification forte multi-facteurs',
     ],
     floatPhase: 1.0,
+    imagePath: 'assets/img_3.png',
   ),
   _SolutionData(
     key: 'tunstamp',
@@ -225,13 +230,14 @@ const List<_SolutionData> _solutions = [
       'Transactions financières certifiées',
     ],
     features: [
-      'Horodatage RFC 3161 certifié',
+      'Algorithme de hachage supporté : SHA256',
       'Valeur juridique reconnue',
       'Précision à la milliseconde',
-      'Intégration API disponible',
+      'Algorithme de signature : ECDSA',
       'Archivage à long terme sécurisé',
     ],
     floatPhase: 1.5,
+    imagePath: 'assets/img_4.png',
   ),
 ];
 
@@ -617,24 +623,21 @@ class SolutionDetailScreen extends StatelessWidget {
                   gradient: AppTheme.solutionGradient(solution.key),
                 ),
                 child: Stack(
+                  fit: StackFit.expand,
                   children: [
-                    Positioned(
-                      right: -30, top: -30,
-                      child: Container(
-                        width: 180, height: 180,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.08),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
+                    Image.asset(
+                      solution.imagePath,
+                      fit: BoxFit.cover,
                     ),
-                    Positioned(
-                      left: -20, bottom: -20,
-                      child: Container(
-                        width: 100, height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.06),
-                          shape: BoxShape.circle,
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.7),
+                            solution.color.withOpacity(0.4),
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
                       ),
                     ),
@@ -746,7 +749,7 @@ class SolutionDetailScreen extends StatelessWidget {
                       ),
                       onPressed: () => _launch(context),
                       icon: const Icon(Icons.open_in_new_rounded),
-                      label: Text('Découvrir ${solution.title} sur tuntrust.tn',
+                      label: Text('Découvrir ${solution.title}',
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w600)),
                     ),
