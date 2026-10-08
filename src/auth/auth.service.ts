@@ -30,23 +30,30 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
-    const otp = this.generateOtp();
-    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
+    // Create user already active — no email OTP required for normal signup.
     const user = await this.userService.create({
       name: dto.name,
       email: dto.email,
       password: hashedPassword,
-      otp,
-      otpExpires,
-      isActive: false,
+      isActive: true,
     });
 
-    await this.mailService.sendOtpEmail(user.email, user.name, otp);
+    // Issue a JWT immediately so the app can navigate straight to the home screen.
+    const payload = {
+      sub: (user as any)._id.toString(),
+      email: user.email,
+      name: user.name,
+    };
+    const token = this.jwtService.sign(payload);
 
     return {
-      message: `Un code de vérification a été envoyé à ${user.email}. Vérifiez votre boîte mail ou la console du serveur.`,
-      userId: (user as any)._id.toString(),
+      access_token: token,
+      user: {
+        id: (user as any)._id.toString(),
+        name: user.name,
+        email: user.email,
+      },
     };
   }
 

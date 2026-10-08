@@ -11,7 +11,7 @@ export type SupportedLanguage = 'fr' | 'en' | 'ar' | 'ar_tn';
 const PYTHON_AI_HOST = 'localhost';
 const PYTHON_AI_PORT = 8000;
 const PYTHON_AI_PATH = '/ask';
-const PYTHON_AI_TIMEOUT_MS = 60_000; // 60s — first request warms up Ollama model
+const PYTHON_AI_TIMEOUT_MS = 240_000; // 240s (4 min) — Ollama qwen2.5:3b can take several minutes
 
 @Injectable()
 export class AiService {
@@ -162,13 +162,27 @@ export class AiService {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(payload),
         },
-        timeout: PYTHON_AI_TIMEOUT_MS,
+        // NOTE: Do NOT set `timeout` here — in Node.js http.request, `options.timeout`
+        // is a *socket idle timeout*, not a total request timeout. Ollama streams
+        // tokens progressively, so the socket never goes fully idle, but the TTFB
+        // (time-to-first-byte) for long generations can exceed 60s.
+        // We set a manual deadline instead via a timer below.
       };
+
+      // Manual wall-clock deadline — fires if the entire response takes too long.
+      let timedOut = false;
+      const deadline = setTimeout(() => {
+        timedOut = true;
+        req.destroy();
+        reject(new Error(`Python AI server did not respond within ${PYTHON_AI_TIMEOUT_MS / 1000}s — Ollama may still be generating. Check that uvicorn is running.`));
+      }, PYTHON_AI_TIMEOUT_MS);
 
       const req = http.request(options, (res) => {
         let body = '';
         res.on('data', (chunk) => { body += chunk; });
         res.on('end', () => {
+          if (timedOut) return;
+          clearTimeout(deadline);
           this.logger.log(`[PYTHON RESPONSE] HTTP ${res.statusCode} — ${body.slice(0, 300)}${body.length > 300 ? '...' : ''}`);
           try {
             if (res.statusCode && res.statusCode >= 400) {
@@ -186,12 +200,9 @@ export class AiService {
         });
       });
 
-      req.on('timeout', () => {
-        req.destroy();
-        reject(new Error(`Python AI server timed out after ${PYTHON_AI_TIMEOUT_MS / 1000}s`));
-      });
-
       req.on('error', (err) => {
+        if (timedOut) return;
+        clearTimeout(deadline);
         reject(new Error(`Cannot reach Python AI server on port ${PYTHON_AI_PORT}: ${err.message}`));
       });
 

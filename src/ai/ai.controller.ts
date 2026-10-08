@@ -11,6 +11,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { AiService } from './ai.service';
 import { KnowledgeService } from '../knowledge/knowledge.service';
+import { SubscriptionGuard } from '../subscription/subscription.guard';
 
 @Controller('ai')
 export class AiController {
@@ -20,7 +21,7 @@ export class AiController {
   ) {}
 
   @Post('chat')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), SubscriptionGuard)
   async chat(@Req() req: any, @Body() body: any) {
     const startedAt = Date.now();
     const question = typeof body === 'string' ? body : body?.question ?? '';

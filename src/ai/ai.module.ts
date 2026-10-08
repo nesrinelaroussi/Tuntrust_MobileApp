@@ -4,12 +4,14 @@ import { AiController } from './ai.controller';
 import { AiService } from './ai.service';
 import { KnowledgeModule } from '../knowledge/knowledge.module';
 import { ProductsModule } from '../products/products.module';
+import { SubscriptionModule } from '../subscription/subscription.module';
 import { Conversation, ConversationSchema } from './conversation.schema';
 
 @Module({
   imports: [
     KnowledgeModule,
     ProductsModule,
+    SubscriptionModule,
     MongooseModule.forFeature([
       { name: Conversation.name, schema: ConversationSchema },
     ]),

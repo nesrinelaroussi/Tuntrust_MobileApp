@@ -12,6 +12,7 @@ import { ProductsModule } from './products/products.module';
 import { MobileProductsModule } from './products/mobile-products.module';
 import { AiModule } from './ai/ai.module';
 import { KnowledgeModule } from './knowledge/knowledge.module';
+import { SubscriptionModule } from './subscription/subscription.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { KnowledgeModule } from './knowledge/knowledge.module';
     MobileProductsModule,
     KnowledgeModule,
     AiModule,
+    SubscriptionModule,
   ],
   controllers: [AppController],
   providers: [
